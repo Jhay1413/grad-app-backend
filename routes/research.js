@@ -17,7 +17,7 @@ router.route('/insertResearch').post((req,res)=>{
     const NoOfUtilModel = req.body.NoOfUtilModel;
     const Cite = req.body.Cite;
     const Remarks = req.body.Remarks;
-
+    
 
     
     const newResearch = new Research({ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,Remarks});
@@ -43,14 +43,14 @@ router.put('/updateResearch/:id', async(req,res)=>{
         const {id} = req.params;
         const { ResearchName,
                 Abstract,
-                NoOfProponents,
+                Proponents,
                 Beneficiaries,
                 FundSource,
                 NoOfPatents,
                 NoOfUtilModel,
                 Cite,
                 Remarks} = req.body;
-        const updatedResearch = await Research.findByIdAndUpdate(id,{ResearchName,Abstract,NoOfProponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,Remarks},{new:true})
+        const updatedResearch = await Research.findByIdAndUpdate(id,{ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,Remarks},{new:true})
         res.status(200).json(updatedResearch);
     } catch (error) {
         res.status(500).json({ message: 'Error updating document' });

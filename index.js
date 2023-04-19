@@ -5,7 +5,7 @@ const cors = require('cors');
 const ResearchRouter = require('./routes/research');
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 mongoose.connect('mongodb+srv://jhonchristianubaldo:christiankyzen@explore-ro8.qqees76.mongodb.net/ro8-explore?retryWrites=true&w=majority', {
   useNewUrlParser: true,
