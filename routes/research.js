@@ -2,7 +2,7 @@ const router = require('express').Router();
 let Research = require('../models/research');
 
 
-router.route('/getResearch').get((req,res)=>{
+router.route('getResearch').get((req,res)=>{
     Research.find()
         .then(research => res.json(research))
         .catch(err=>res.status(400).json('error:' + err ));
@@ -25,7 +25,7 @@ router.route('/insertResearch').post((req,res)=>{
         .then(research => res.json('New Record Added !'))
         .catch(err=> res.status(400).json('err:'+ err));
 });
-router.delete('/deleteResearch/:id',async(req,res)=>{
+router.delete('deleteResearch/:id',async(req,res)=>{
     try {
         const research = await Research.findOneAndDelete({_id: req.params.id});
         if(!research){
@@ -38,7 +38,7 @@ router.delete('/deleteResearch/:id',async(req,res)=>{
     }
 })
 ;
-router.put('/updateResearch/:id', async(req,res)=>{
+router.put('updateResearch/:id', async(req,res)=>{
     try {
         const {id} = req.params;
         const { ResearchName,
