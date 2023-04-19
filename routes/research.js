@@ -2,7 +2,7 @@ const router = require('express').Router();
 let Research = require('../models/research');
 
 
-router.route('/getResearch').get((req,res)=>{
+router.route('getResearch').get((req,res)=>{
     Research.find()
         .then(research => res.json(research))
         .catch(err=>res.status(400).json('error:' + err ));
