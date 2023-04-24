@@ -15,12 +15,13 @@ router.route('/insertResearch').post((req,res)=>{
     const FundSource = req.body.FundSource;
     const NoOfPatents = req.body.NoOfPatents;
     const NoOfUtilModel = req.body.NoOfUtilModel;
+    const AcceptanceDate = req.body.AcceptanceDate;
     const Cite = req.body.Cite;
     const Remarks = req.body.Remarks;
     
 
     
-    const newResearch = new Research({ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,Remarks});
+    const newResearch = new Research({ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,AcceptanceDate,Cite,Remarks});
     newResearch.save()
         .then(research => res.json('New Record Added !'))
         .catch(err=> res.status(400).json('err:'+ err));
@@ -49,8 +50,9 @@ router.put('/updateResearch/:id', async(req,res)=>{
                 NoOfPatents,
                 NoOfUtilModel,
                 Cite,
+                AcceptanceDate,
                 Remarks} = req.body;
-        const updatedResearch = await Research.findByIdAndUpdate(id,{ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,Remarks},{new:true})
+        const updatedResearch = await Research.findByIdAndUpdate(id,{ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,AcceptanceDate,Remarks},{new:true})
         res.status(200).json(updatedResearch);
     } catch (error) {
         res.status(500).json({ message: 'Error updating document' });

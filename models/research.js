@@ -37,6 +37,10 @@ const ResearchSchema = new mongoose.Schema({
         type:String,
         required: true,
     },
+    AcceptanceDate:{
+        type:Date,
+        required: true,
+    },
 },{
     timestamps:{
         currentTime: () => {
