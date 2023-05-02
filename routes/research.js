@@ -8,12 +8,15 @@ router.route('/getResearch').get((req,res)=>{
 });
 router.route('/insertResearch').post((req,res)=>{
     const researchData = req.body;
-    console.log(researchData);
-    /*
-    const newResearch = new Research({researchData});
+ 
+    
+    const newResearch = new Research(researchData);
     newResearch.save()
-        .then(research => res.json('New Record Added !'))
-        .catch(err=> res.status(400).json('err:'+ err));*/
+    .then((research) => {
+        console.log('Saved research:', research);
+        res.json('New Record Added !');
+      })
+      .catch((err) => res.status(400).json('err:' + err));
        
 });
 router.delete('/deleteResearch/:id',async(req,res)=>{
@@ -44,7 +47,7 @@ router.put('/updateResearch/:id', async(req,res)=>{
                 Details,
                 } = req.body;
        
-        const {published,yearStarted,yearCompleted,acceptanceDate,agency,region} = Details
+        const {published,yearStarted,yearCompleted,agency,region} = Details
         const updatedResearch = await Research.findByIdAndUpdate(
             id,
             {ResearchName,

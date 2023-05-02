@@ -11,7 +11,6 @@ const ResearchDetailsSchema = new mongoose.Schema({
     published: String,
     yearStarted: Number,
     yearCompleted: Number,
-    acceptanceDate:Date,
     agency: String,
     region: String,
     createdAt:{
