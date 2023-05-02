@@ -1,30 +1,20 @@
 const router = require('express').Router();
 let Research = require('../models/research');
 
-
 router.route('/getResearch').get((req,res)=>{
     Research.find()
         .then(research => res.json(research))
         .catch(err=>res.status(400).json('error:' + err ));
 });
 router.route('/insertResearch').post((req,res)=>{
-    const ResearchName = req.body.ResearchName;
-    const Abstract = req.body.Abstract;
-    const Proponents = req.body.Proponents;
-    const Beneficiaries = req.body.Beneficiaries;
-    const FundSource = req.body.FundSource;
-    const NoOfPatents = req.body.NoOfPatents;
-    const NoOfUtilModel = req.body.NoOfUtilModel;
-    const AcceptanceDate = req.body.AcceptanceDate;
-    const Cite = req.body.Cite;
-    const Remarks = req.body.Remarks;
-    
-
-    
-    const newResearch = new Research({ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,AcceptanceDate,Cite,Remarks});
+    const researchData = req.body;
+    console.log(researchData);
+    /*
+    const newResearch = new Research({researchData});
     newResearch.save()
         .then(research => res.json('New Record Added !'))
-        .catch(err=> res.status(400).json('err:'+ err));
+        .catch(err=> res.status(400).json('err:'+ err));*/
+       
 });
 router.delete('/deleteResearch/:id',async(req,res)=>{
     try {
@@ -50,12 +40,29 @@ router.put('/updateResearch/:id', async(req,res)=>{
                 NoOfPatents,
                 NoOfUtilModel,
                 Cite,
-                AcceptanceDate,
-                Remarks} = req.body;
-        const updatedResearch = await Research.findByIdAndUpdate(id,{ResearchName,Abstract,Proponents,Beneficiaries,FundSource,NoOfPatents,NoOfUtilModel,Cite,AcceptanceDate,Remarks},{new:true})
+                Remarks,
+                Details,
+                } = req.body;
+       
+        const {published,yearStarted,yearCompleted,acceptanceDate,agency,region} = Details
+        const updatedResearch = await Research.findByIdAndUpdate(
+            id,
+            {ResearchName,
+                Abstract,
+                Proponents,
+                Beneficiaries,
+                FundSource,
+                NoOfPatents,
+                NoOfUtilModel,
+                Cite,
+                Remarks,
+                Details
+            },{new:true})
         res.status(200).json(updatedResearch);
     } catch (error) {
         res.status(500).json({ message: 'Error updating document' });
     }
+    console.log(req.body);
+    
 })
 module.exports = router;

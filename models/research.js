@@ -1,58 +1,54 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
+
+const getPhilippineTime = () => {
+    const currentDate = new Date();
+    const timezoneOffset = 8 * 60; // UTC+8 in minutes
+    return new Date(currentDate.getTime() + timezoneOffset * 60 * 1000);
+  };
+  
+const ResearchDetailsSchema = new mongoose.Schema({
+    published: String,
+    yearStarted: Number,
+    yearCompleted: Number,
+    acceptanceDate:Date,
+    agency: String,
+    region: String,
+    createdAt:{
+        type:Date,
+        default: getPhilippineTime
+    },
+    updatedAt:{
+        type:Date,
+        default:getPhilippineTime
+    }
+});
+
 
 const ResearchSchema = new mongoose.Schema({
-    ResearchName:{
-        type:String,
-        required: true,
-    },
-    Abstract:{
-        type:String,
-        required: true,
-    },
-    Beneficiaries:{
-        type:String,
-        required: true,
-    },
-    Proponents:{
-        type:String,
-        required: true,
-    },
-    FundSource:{
-        type:String,
-        required: true,
-    },
-    NoOfPatents:{
-        type:Number,
-        required: true,
-    },
-    NoOfUtilModel:{
-        type:Number,
-        required: true,
-    },
-    Cite:{
-        type:String,
-        required: true,
-    },
-    Remarks:{
-        type:String,
-        required: true,
-    },
-    AcceptanceDate:{
+    ResearchName:String,
+    Abstract:String,
+    Beneficiaries:String,
+    Proponents:String,
+    FundSource:String,
+    NoOfPatents:Number,
+    NoOfUtilModel:Number,
+    Cite:String,
+    Remarks:String,
+    Details: ResearchDetailsSchema,
+    createdAt:{
         type:Date,
-        required: true,
+        default: getPhilippineTime
     },
-},{
-    timestamps:{
-        currentTime: () => {
-            // Get current UTC date and time
-            const currentDate = new Date();
-            // Convert to Philippine time
-            const timezoneOffset = 8 * 60; // UTC+8 in minutes
-            const philippineTime = new Date(currentDate.getTime() + timezoneOffset * 60 * 1000);
-            // Return Philippine time as current time for "createdAt" and "updatedAt" fields
-            return philippineTime;
-        }
+    updatedAt:{
+        type:Date,
+        default:getPhilippineTime
     }
+});
+
+ResearchSchema.pre('save',function(next){
+    this.updatedAt = getPhilippineTime();
+    next();
 });
 const ResearchModel = mongoose.model("Research",ResearchSchema,'Research');
 module.exports = ResearchModel;
