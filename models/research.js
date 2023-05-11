@@ -33,6 +33,8 @@ const ResearchSchema = new mongoose.Schema({
     NoOfPatents:Number,
     NoOfUtilModel:Number,
     Cite:String,
+    Adviser:String,
+    Dissertation: String,
     Remarks:String,
     Details: ResearchDetailsSchema,
     createdAt:{
