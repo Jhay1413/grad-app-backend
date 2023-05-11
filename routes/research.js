@@ -33,12 +33,15 @@ router.delete('/deleteResearch/:id',async(req,res)=>{
 })
 ;
 router.put('/updateResearch/:id', async(req,res)=>{
+    
     try {
         const {id} = req.params;
         const { ResearchName,
                 Abstract,
                 Proponents,
                 Beneficiaries,
+                Adviser,
+                Dissertation,
                 FundSource,
                 NoOfPatents,
                 NoOfUtilModel,
@@ -54,6 +57,8 @@ router.put('/updateResearch/:id', async(req,res)=>{
                 Abstract,
                 Proponents,
                 Beneficiaries,
+                Adviser,
+                Dissertation,
                 FundSource,
                 NoOfPatents,
                 NoOfUtilModel,
@@ -65,7 +70,6 @@ router.put('/updateResearch/:id', async(req,res)=>{
     } catch (error) {
         res.status(500).json({ message: 'Error updating document' });
     }
-    console.log(req.body);
     
 })
 module.exports = router;
