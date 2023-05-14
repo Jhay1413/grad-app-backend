@@ -12,7 +12,7 @@ router.route('/insertResearch').post((req,res)=>{
     
     const newResearch = new Research(researchData);
     newResearch.save()
-    .then((research) => {
+    .then(() => {
         res.json('New Record Added !');
       })
       .catch((err) => res.status(400).json('err:' + err));
