@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Research = require('../models/research');
+let Research = require('../models/ResearchModels/research');
 
 router.route('/getResearch').get((req,res)=>{
     Research.find()
@@ -13,7 +13,6 @@ router.route('/insertResearch').post((req,res)=>{
     const newResearch = new Research(researchData);
     newResearch.save()
     .then((research) => {
-        console.log('Saved research:', research);
         res.json('New Record Added !');
       })
       .catch((err) => res.status(400).json('err:' + err));

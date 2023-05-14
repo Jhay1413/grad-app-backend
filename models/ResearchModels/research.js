@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
 
+//Research Schema
 const getPhilippineTime = () => {
     const currentDate = new Date();
     const timezoneOffset = 8 * 60; // UTC+8 in minutes
     return new Date(currentDate.getTime() + timezoneOffset * 60 * 1000);
   };
-  
+
 const ResearchDetailsSchema = new mongoose.Schema({
     published: String,
     yearStarted: Number,
@@ -22,8 +23,6 @@ const ResearchDetailsSchema = new mongoose.Schema({
         default:getPhilippineTime
     }
 });
-
-
 const ResearchSchema = new mongoose.Schema({
     ResearchName:String,
     Abstract:String,
@@ -36,6 +35,10 @@ const ResearchSchema = new mongoose.Schema({
     Adviser:String,
     Dissertation: String,
     Remarks:String,
+    Category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    },
     Details: ResearchDetailsSchema,
     createdAt:{
         type:Date,
@@ -45,11 +48,15 @@ const ResearchSchema = new mongoose.Schema({
         type:Date,
         default:getPhilippineTime
     }
-});
+}); 
 
 ResearchSchema.pre('save',function(next){
     this.updatedAt = getPhilippineTime();
     next();
 });
+
+
+
 const ResearchModel = mongoose.model("Research",ResearchSchema,'Research');
 module.exports = ResearchModel;
+  
