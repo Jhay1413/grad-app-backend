@@ -9,7 +9,12 @@ const authRoutes = require('./routes/auth');
 
 require('dotenv').config();
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://grad-app-frontend.vercel.app'],
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 mongoose.connect('mongodb+srv://jhonchristianubaldo:christiankyzen@explore-ro8.qqees76.mongodb.net/ro8-explore?retryWrites=true&w=majority', {
   useNewUrlParser: true,
