@@ -11,15 +11,10 @@ require('dotenv').config();
 app.use(express.json());
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    callback(null, true);
-  },
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: ["Access-Control-Allow-Origin", "Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
-  credentials: true
-}
+  origin: ['https://grad-app-frontend.vercel.app','http://localhost:3000'],
+  optionsSuccessStatus: 200
+};
 
-app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
 mongoose.connect('mongodb+srv://jhonchristianubaldo:christiankyzen@explore-ro8.qqees76.mongodb.net/ro8-explore?retryWrites=true&w=majority', {
