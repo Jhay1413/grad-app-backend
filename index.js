@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://jhonchristianubaldo:christiankyzen@explore-ro8.q
 });
 
 app.use('/research',ResearchRouter);
-app.use('/category',CategoryRouter);
+app.use('/api/category',CategoryRouter);
 app.use('/api/users',userRoutes);
 app.use('/api/auth',authRoutes);
 
