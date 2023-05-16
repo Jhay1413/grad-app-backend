@@ -11,7 +11,7 @@ require('dotenv').config();
 app.use(express.json());
 
 const corsOptions = {
-  origin: ['https://grader-app-frontend.vercel.app','http://localhost:3000'],
+  origin: ['https://grad-app-frontend.vercel.app','http://localhost:3000'],
   optionsSuccessStatus: 200
 };
 
