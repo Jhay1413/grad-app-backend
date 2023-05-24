@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const ResearchRouter = require('./routes/research');
 const CategoryRouter = require('./routes/category');
+const SubCategoryRouter = require('./routes/subCategory');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 
@@ -23,6 +24,7 @@ mongoose.connect('mongodb+srv://jhonchristianubaldo:christiankyzen@explore-ro8.q
 
 app.use('/research',ResearchRouter);
 app.use('/api/category',CategoryRouter);
+app.use('api/subCategory',SubCategoryRouter);
 app.use('/api/users',userRoutes);
 app.use('/api/auth',authRoutes);
 

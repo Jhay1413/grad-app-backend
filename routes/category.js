@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Category = require('../models/ResearchModels/category');
+let Category= require('../models/ResearchModels/category');
 
 router.route('/getCategory').get((req,res)=>{
     Category.find()
@@ -7,14 +7,16 @@ router.route('/getCategory').get((req,res)=>{
         .catch(err=>res.status(400).json('error:' + err));
 });
 router.route('/insertCategory').post((req,res)=>{
-    const category = req.body;
 
+    const category = req.body;
+   
     const newCategory = new Category(category);
     newCategory.save()
         .then((category)=>{
             res.json('New Category Added ! ');
         })
         .catch((err)=> res.status(400).json('err:' + err));
+      
 })
 router.delete('/deleteCategory/:id',async(req,res)=>{
     try {
