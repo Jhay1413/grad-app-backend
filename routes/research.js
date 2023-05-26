@@ -9,8 +9,6 @@ router.route('/getResearch').get((req,res)=>{
 });
 router.route('/insertResearch').post((req,res)=>{
     const researchData = req.body;
- 
-    
     const newResearch = new Research(researchData);
     newResearch.save()
     .then(() => {
@@ -49,8 +47,6 @@ router.put('/updateResearch/:id', async(req,res)=>{
                 Remarks,
                 Details,
                 } = req.body;
-       
-        const {published,yearStarted,yearCompleted,agency,region} = Details
         const updatedResearch = await Research.findByIdAndUpdate(
             id,
             {ResearchName,
@@ -70,7 +66,6 @@ router.put('/updateResearch/:id', async(req,res)=>{
     } catch (error) {
         res.status(500).json({ message: 'Error updating document' });
     }
-    
 })
 router.get('/filteredData',async (req,res)=>{
     const {startYear,endYear} = req.query;
