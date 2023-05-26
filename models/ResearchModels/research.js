@@ -8,10 +8,6 @@ const getPhilippineTime = () => {
     return new Date(currentDate.getTime() + timezoneOffset * 60 * 1000);
   };
 
-
-const subCategorySchema = new mongoose.Schema({
-    name: String
-});
 const ResearchDetailsSchema = new mongoose.Schema({
     published: String,
     yearStarted: Number,

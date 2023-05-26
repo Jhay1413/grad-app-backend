@@ -1,22 +1,28 @@
 const router = require('express').Router();
-let Category= require('../models/ResearchModels/category');
+const {CategoryModel} = require('../models/ResearchModels/category');
 
 router.route('/getCategory').get((req,res)=>{
-    Category.find()
+    CategoryModel.find()
         .then(category => res.json(category))
         .catch(err=>res.status(400).json('error:' + err));
 });
-router.route('/insertCategory').post((req,res)=>{
-
-    const category = req.body;
+router.post('/insertCategory',async (req,res)=>{
+    const {categoryName} = req.body;
+    try {
+        const existingCategory = await CategoryModel.findOne({categoryName});
+        if(existingCategory){
+            return res.status(400).json({ error: 'Category already exists' });
+        }
+        const newCategory = new CategoryModel({categoryName});;
+            newCategory.save()
+                .then(()=>{
+                    res.json('New Category Added ! ');
+                })
+                .catch((err)=> res.status(400).json('err:' + err));
    
-    const newCategory = new Category(category);
-    newCategory.save()
-        .then((category)=>{
-            res.json('New Category Added ! ');
-        })
-        .catch((err)=> res.status(400).json('err:' + err));
-      
+    } catch (error) {
+        res.status(500).send('Server Error !')
+    } 
 })
 router.delete('/deleteCategory/:id',async(req,res)=>{
     try {
@@ -26,7 +32,6 @@ router.delete('/deleteCategory/:id',async(req,res)=>{
         }
         return res.status(200).send('Deleted Successfully ! ');
     } catch (error) {
-        console.error(error);
         res.status(500).send('Server Error !')
     }
 })
