@@ -1,18 +1,18 @@
 const router = require('express').Router();
-let SubCategory = require('../models/ResearchModels/category');
+const {SubCategoryModel, CategoryModel}= require('../models/ResearchModels/category');
 
 router.route('/getSubCategories').get((req,res)=>{
-    SubCategory.find()
+    SubCategoryModel.find()
         .then(subcategory => res.json(subcategory))
         .catch(err=>res.status(400).json('error: ' + err));
 });
 router.route('/insertSubCategory').post((req,res)=>{
-    const subcategory = req.body;
+    const {name} = req.body;
 
-    const newSubCategory = new SubCategory(subcategory);
+    const newSubCategory = new SubCategoryModel({name});
     newSubCategory.save()
         .then((subcategory)=>{
-            res.json('New Sub Category Added ! ');
+            res.status(200).json(subcategory);
         })
         .catch((err)=>res.status(400).json('err' + err));
 
@@ -37,5 +37,13 @@ router.put('/updateSubCategory/:id', async(req,res)=>{
         res.status(500).json({message:"Server Error!"});
     }
 })
-
+router.put('/addingCategory/:id',async(req,res)=>{
+    const {id} = req.params;
+    const {_id} = req.body;
+  
+    const category = await CategoryModel.findById(id);
+    category.subCategory.push({_id});
+    await category.save();
+    res.status(200).send(category);
+})
 module.exports = router;

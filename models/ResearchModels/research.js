@@ -14,6 +14,10 @@ const ResearchDetailsSchema = new mongoose.Schema({
     yearCompleted: Number,
     agency: String,
     region: String,
+    subcategory: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'SubCategory',
+    },
     createdAt:{
         type:Date,
         default: getPhilippineTime
@@ -33,12 +37,7 @@ const ResearchSchema = new mongoose.Schema({
     NoOfUtilModel:Number,
     Cite:String,
     Adviser:String,
-    Dissertation: String,
     Remarks:String,
-    Category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Category'
-    },
     Details: ResearchDetailsSchema,
     createdAt:{
         type:Date,

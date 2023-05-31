@@ -24,7 +24,7 @@ mongoose.connect('mongodb+srv://jhonchristianubaldo:christiankyzen@explore-ro8.q
 
 app.use('/research',ResearchRouter);
 app.use('/api/category',CategoryRouter);
-app.use('api/subCategory',SubCategoryRouter);
+app.use('/api/subCategory',SubCategoryRouter);
 app.use('/api/users',userRoutes);
 app.use('/api/auth',authRoutes);
 
