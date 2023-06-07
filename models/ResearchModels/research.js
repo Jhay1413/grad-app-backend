@@ -14,7 +14,7 @@ const ResearchDetailsSchema = new mongoose.Schema({
     yearCompleted: Number,
     agency: String,
     region: String,
-    subcategory: {
+    subCategory: {
         type:mongoose.Schema.Types.ObjectId,
         ref: 'SubCategory',
     },

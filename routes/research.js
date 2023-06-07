@@ -6,6 +6,26 @@ router.route('/getResearch').get((req,res)=>{
     Research.find()
         .then(research => res.json(research))
         .catch(err=>res.status(400).json('error:' + err ));
+
+
+         /* use this after all the data has subcategory already
+    const response = await Research.aggregate([
+        {
+            $lookup:{
+                from:'SubCategory',
+                localField:'Details.subCategory',
+                foreignField:'_id',
+                as:'Details.subCategory'
+            
+            }
+        },
+        {
+            $unwind:'$Details.subCategory'
+        },
+       
+        
+    ])
+    res.status(200).json(response);*/
 });
 router.route('/insertResearch').post((req,res)=>{
     const researchData = req.body;
@@ -31,37 +51,19 @@ router.delete('/deleteResearch/:id',async(req,res)=>{
 })
 ;
 router.put('/updateResearch/:id', async(req,res)=>{
-    
+    const {id} = req.params;
+    const data = req.body
     try {
-        const {id} = req.params;
-        const { ResearchName,
-                Abstract,
-                Proponents,
-                Beneficiaries,
-                Adviser,
-                FundSource,
-                NoOfPatents,
-                NoOfUtilModel,
-                Cite,
-                Remarks,
-                Details,
-                } = req.body;
+      
         const updatedResearch = await Research.findByIdAndUpdate(
             id,
-            {ResearchName,
-                Abstract,
-                Proponents,
-                Beneficiaries,
-                Adviser,
-                FundSource,
-                NoOfPatents,
-                NoOfUtilModel,
-                Cite,
-                Remarks,
-                Details
-            },{new:true})
+            {$set:
+               data,
+              
+            },{ new: true, useFindAndModify: false})
         res.status(200).json(updatedResearch);
     } catch (error) {
+        console.error(error); 
         res.status(500).json({ message: 'Error updating document' });
     }
 })
